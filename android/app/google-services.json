@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "160583495835",
+    "project_id": "allergy-ai",
+    "storage_bucket": "allergy-ai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160583495835:android:65e744c12051fa6826163e",
+        "android_client_info": {
+          "package_name": "com.sahilshah.allergyai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160583495835-p99i174p9s21mqat7akcu68541mp4flf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLrJmOcqgS5mMyqw2NzfwEWycrH4SlKes"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160583495835-p99i174p9s21mqat7akcu68541mp4flf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "160583495835-c6a2ntbhvqtd5floqjdefn7udj0t5b9g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sahilshah.allergyai"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
