@@ -91,7 +91,7 @@ class LoginState extends State<Login> {
                     ),
                   ],
                 ),
-                onPressed: () => auth.signIn(context),
+                onPressed: () => auth.signInGoogle(context),
               ),
             ),
           ),

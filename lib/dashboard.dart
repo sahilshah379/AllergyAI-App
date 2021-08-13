@@ -12,6 +12,7 @@ class Dashboard extends StatefulWidget {
     required this.camera,
   }) : super(key: key);
   final CameraDescription camera;
+
   @override
   DashboardState createState() => new DashboardState();
 }

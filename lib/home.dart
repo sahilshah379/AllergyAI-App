@@ -1,11 +1,11 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 
 class Home extends StatefulWidget {
   const Home({
     Key? key,
-    required this. camera,
+    required this.camera,
   }) : super(key: key);
   final CameraDescription camera;
 
@@ -16,7 +16,6 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   late CameraController _cameraController;
   late Future<void> _initializeControllerFuture;
-
 
   @override
   void initState() {
@@ -77,7 +76,7 @@ class HomeState extends State<Home> {
                   print(e);
                 }
               },
-              child: const Text(""),
+              child: const Text(''),
             ),
           ),
         ),
