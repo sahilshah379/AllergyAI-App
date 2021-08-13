@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "160583495835-q2o0ehp7vji9nv7balrfsf7r0v44n95l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sahilshah.allergyai",
+            "certificate_hash": "f7a8bcccc1d5c96be74e9cf86b979dc19463fd01"
+          }
+        },
+        {
           "client_id": "160583495835-p99i174p9s21mqat7akcu68541mp4flf.apps.googleusercontent.com",
           "client_type": 3
         }

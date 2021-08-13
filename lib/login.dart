@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'authentication.dart';
+
 class Login extends StatefulWidget {
   @override
   LoginState createState() => new LoginState();
 }
 
 class LoginState extends State<Login> {
+  var auth = new Authentication();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,9 +91,7 @@ class LoginState extends State<Login> {
                     ),
                   ],
                 ),
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed('/dashboard');
-                },
+                onPressed: () => auth.signIn(context),
               ),
             ),
           ),

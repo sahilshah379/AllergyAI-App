@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class Home extends StatefulWidget {
   const Home({
     Key? key,
-    required this.camera,
+    required this. camera,
   }) : super(key: key);
   final CameraDescription camera;
 
