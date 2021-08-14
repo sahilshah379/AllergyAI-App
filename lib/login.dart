@@ -53,7 +53,7 @@ class LoginState extends State<Login> {
                     padding: EdgeInsets.only(top: 30.0),
                     child: Container(
                       padding: const EdgeInsets.all(2.0),
-                      child: Container (
+                      child: Container(
                         child: TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -108,7 +108,7 @@ class LoginState extends State<Login> {
                     padding: EdgeInsets.only(top: 15.0),
                     child: Container(
                       padding: const EdgeInsets.all(2.0),
-                      child: Container (
+                      child: Container(
                         child: TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -250,23 +250,25 @@ class LoginState extends State<Login> {
               ),
               onPressed: () => auth.signInGoogle(context),
             ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Row(
-                children: <Widget>[
-                  Text(
-                      'New to Allergy AI?'
-                  ),
-                  TextButton(
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                        color: Colors.lightBlue,
-                      ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                        'New to Allergy AI?'
                     ),
-                    onPressed: () {print('register');},
-                  ),
-                ],
+                    TextButton(
+                      child: Text(
+                        'Register',
+                        style: TextStyle(
+                          color: Colors.lightBlue,
+                        ),
+                      ),
+                      onPressed: () {print('register');},
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

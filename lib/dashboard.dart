@@ -21,6 +21,7 @@ class DashboardState extends State<Dashboard> {
   late PageController _pageController;
 
   int _page = 1;
+  var _navigationBarColors = [Color(0xff3A3B3C), Color(0xff3A3B3C), Color(0xff3A3B3C)];
 
   @override
   void initState() {
@@ -28,6 +29,7 @@ class DashboardState extends State<Dashboard> {
     _pageController = new PageController(
       initialPage: 1,
     );
+    _navigationBarColors[_page] = Colors.lightBlueAccent;
   }
 
   @override
@@ -43,7 +45,9 @@ class DashboardState extends State<Dashboard> {
   }
   void onPageChanged(int page) {
     setState(() {
+      _navigationBarColors[_page] = Color(0xff3A3B3C);
       this._page = page;
+      _navigationBarColors[_page] = Colors.lightBlueAccent;
     });
   }
 
@@ -64,21 +68,21 @@ class DashboardState extends State<Dashboard> {
             new BottomNavigationBarItem(
               icon: new Icon(
                 Icons.local_hospital_outlined,
-                color: Theme.of(context).accentColor,
+                color: _navigationBarColors[0],
               ),
               label: 'Info',
             ),
             new BottomNavigationBarItem(
               icon: new Icon(
                 Icons.home_outlined,
-                color: Theme.of(context).accentColor,
+                color: _navigationBarColors[1],
               ),
               label: 'Camera',
             ),
             new BottomNavigationBarItem(
               icon: new Icon(
                 Icons.person_outline_sharp,
-                color: Theme.of(context).accentColor,
+                color: _navigationBarColors[2],
               ),
               label: 'Profile',
             ),

@@ -27,6 +27,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
         accentColor: Colors.lightBlueAccent,
+        disabledColor: Color(0xff3A3B3C),
       ),
       initialRoute: '/login',
       routes: {

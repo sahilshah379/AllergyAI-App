@@ -36,17 +36,21 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final deviceRatio = size.height / size.width;
     return Stack(
       children: <Widget> [
         FutureBuilder<void>(
           future: _initializeControllerFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return Center(
-                child: Transform.scale(
-                    scale: deviceRatio/_cameraController.value.aspectRatio,
-                    child: CameraPreview(_cameraController)
+              return Container(
+                width: size.width,
+                height: size.height - kBottomNavigationBarHeight,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(8.0),
+                    bottomLeft: Radius.circular(8.0),
+                  ),
+                  child: CameraPreview(_cameraController),
                 ),
               );
             } else {
