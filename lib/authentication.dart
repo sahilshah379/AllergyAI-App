@@ -31,4 +31,18 @@ class Authentication {
       }
     }
   }
+  Future<void> signInEmail(BuildContext context, String email, String password) async {
+    UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+    User? user = result.user;
+
+    if (user != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('id', user.uid);
+      await prefs.setString('email', user.email!);
+      await prefs.setString('name', user.displayName!);
+      await prefs.setString('photoURL', user.photoURL!);
+
+      Navigator.of(context).pushReplacementNamed('/dashboard');
+    }
+  }
 }
