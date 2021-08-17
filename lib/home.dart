@@ -2,27 +2,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
+import 'messaging.dart';
+
 class Home extends StatefulWidget {
   const Home({
     Key? key,
-    required this.camera,
+    required this.cameras,
   }) : super(key: key);
-  final CameraDescription camera;
+  final List<CameraDescription> cameras;
 
   @override
   HomeState createState() => new HomeState();
 }
 
 class HomeState extends State<Home> {
+  var messaging = new Messaging();
   late CameraController _cameraController;
   late Future<void> _initializeControllerFuture;
+  bool _flash = false;
+  bool _frontFacing = false;
 
   @override
   void initState() {
     super.initState();
     _cameraController = CameraController(
-      widget.camera,
+      widget.cameras[0],
       ResolutionPreset.max,
+      imageFormatGroup: ImageFormatGroup.yuv420,
     );
     _initializeControllerFuture = _cameraController.initialize();
   }
@@ -31,6 +37,10 @@ class HomeState extends State<Home> {
   void dispose() {
     super.dispose();
     _cameraController.dispose();
+  }
+
+  void setCamera() async {
+    await _cameraController.setFlashMode(FlashMode.off);
   }
 
   @override
@@ -58,6 +68,46 @@ class HomeState extends State<Home> {
             }
           },
         ),
+        Positioned(
+          top: 60,
+          left: 10,
+          child: IconButton(
+            icon: Icon(
+              _flash ? Icons.flash_on : Icons.flash_off,
+              color: Colors.white,
+              size: 30,
+            ),
+            onPressed: () {
+              setState(() {
+                _flash = !_flash;
+              });
+              _flash ? _cameraController.setFlashMode(FlashMode.always) : _cameraController.setFlashMode(FlashMode.off);
+            },
+          ),
+        ),
+        Positioned(
+          bottom: 30,
+          right: 40,
+          child: IconButton(
+            icon: Icon(
+              Icons.flip_camera_ios_outlined,
+              color: Colors.white,
+              size: 30,
+            ),
+            onPressed: () async {
+              setState(() {
+                _frontFacing = !_frontFacing;
+              });
+              int cameraNum = _frontFacing ? 0 : 1;
+              _cameraController = CameraController(
+                widget.cameras[0],
+                ResolutionPreset.max,
+                imageFormatGroup: ImageFormatGroup.yuv420,
+              );
+              _initializeControllerFuture = _cameraController.initialize();
+            },
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(bottom: 20.0),
           child: Align(
@@ -76,6 +126,7 @@ class HomeState extends State<Home> {
                 try {
                   await _initializeControllerFuture;
                   final image = await _cameraController.takePicture();
+                  messaging.uploadImageToFirebase(image.path);
                 } catch(e) {
                   print(e);
                 }

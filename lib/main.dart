@@ -10,14 +10,13 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   final cameras = await availableCameras();
-  final camera = cameras.first;
 
-  runApp(App(camera));
+  runApp(App(cameras));
 }
 
 class App extends StatelessWidget {
-  App(this.camera);
-  final camera;
+  App(this.cameras);
+  final cameras;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +28,10 @@ class App extends StatelessWidget {
         accentColor: Colors.lightBlueAccent,
         disabledColor: Color(0xff3A3B3C),
       ),
-      initialRoute: '/login',
+      initialRoute: '/dashboard',
       routes: {
         '/login': (_) => new Login(),
-        '/dashboard': (_) => new Dashboard(camera: camera),
+        '/dashboard': (_) => new Dashboard(cameras: cameras),
       },
     );
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Info extends StatefulWidget {
+class Log extends StatefulWidget {
   @override
-  InfoState createState() => new InfoState();
+  LogState createState() => new LogState();
 }
 
-class InfoState extends State<Info> {
+class LogState extends State<Log> {
   @override
   Widget build(BuildContext context) {
     return new Container (

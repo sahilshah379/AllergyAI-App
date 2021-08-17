@@ -3,15 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'home.dart';
-import 'info.dart';
+import 'log.dart';
 import 'profile.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({
     Key? key,
-    required this.camera,
+    required this.cameras,
   }) : super(key: key);
-  final CameraDescription camera;
+  final List<CameraDescription> cameras;
 
   @override
   DashboardState createState() => new DashboardState();
@@ -67,7 +67,7 @@ class DashboardState extends State<Dashboard> {
           items: [
             new BottomNavigationBarItem(
               icon: new Icon(
-                Icons.local_hospital_outlined,
+                Icons.view_headline,
                 color: _navigationBarColors[0],
               ),
               label: 'Info',
@@ -91,8 +91,8 @@ class DashboardState extends State<Dashboard> {
       ),
       body: new PageView(
         children: [
-          new Info(),
-          new Home(camera: widget.camera),
+          new Log(),
+          new Home(cameras: widget.cameras),
           new Profile(),
         ],
         onPageChanged: onPageChanged,
