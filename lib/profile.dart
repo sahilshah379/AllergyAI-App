@@ -2,6 +2,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'messaging.dart';
+
 class Profile extends StatefulWidget {
   @override
   ProfileState createState() => new ProfileState();
@@ -12,6 +14,8 @@ class ProfileState extends State<Profile> {
   String _name = '';
   String _email = '';
   String _photoURL = '';
+
+  var messaging = Messaging();
 
   @override
   void initState() {
@@ -31,8 +35,11 @@ class ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container (
-      child: Text(_name),
+    return new Center (
+      child: TextButton(
+        child: Text('push'),
+        onPressed: () => messaging.sendDataToFirebase(),
+      )
     );
   }
 }

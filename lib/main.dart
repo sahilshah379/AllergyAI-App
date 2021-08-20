@@ -28,7 +28,7 @@ class App extends StatelessWidget {
         accentColor: Colors.lightBlueAccent,
         disabledColor: Color(0xff3A3B3C),
       ),
-      initialRoute: '/dashboard',
+      initialRoute: '/login',
       routes: {
         '/login': (_) => new Login(),
         '/dashboard': (_) => new Dashboard(cameras: cameras),
