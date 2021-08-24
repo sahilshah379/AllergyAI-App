@@ -93,7 +93,7 @@ class DashboardState extends State<Dashboard> {
         children: [
           new Log(),
           new Home(cameras: widget.cameras),
-          new Profile(),
+          new SafeArea(child: Profile()),
         ],
         onPageChanged: onPageChanged,
         physics: NeverScrollableScrollPhysics(),
