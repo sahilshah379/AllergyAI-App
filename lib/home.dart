@@ -1,6 +1,11 @@
+import 'package:intl/intl.dart';
+import 'package:path/path.dart' as path;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'dart:io';
 
 import 'messaging.dart';
 
@@ -17,6 +22,7 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   var messaging = new Messaging();
+  String _id = '';
   late CameraController _cameraController;
   late Future<void> _initializeControllerFuture;
   bool _flash = false;
@@ -24,6 +30,7 @@ class HomeState extends State<Home> {
 
   @override
   void initState() {
+    _readLocal();
     super.initState();
     _cameraController = CameraController(
       widget.cameras[0],
@@ -37,6 +44,13 @@ class HomeState extends State<Home> {
   void dispose() {
     super.dispose();
     _cameraController.dispose();
+  }
+
+  void _readLocal() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _id = prefs.getString('id')!;
+    });
   }
 
   void setCamera() async {
@@ -126,7 +140,9 @@ class HomeState extends State<Home> {
                 try {
                   await _initializeControllerFuture;
                   final image = await _cameraController.takePicture();
-                  messaging.uploadImageToFirebase(image.path);
+                  File file = File(image.path);
+                  var now = DateFormat('_yyyyMMddHHmmss').format(DateTime.now());
+                  messaging.uploadFileToFirebase(file, _id + now + '.jpg');
                 } catch(e) {
                   print(e);
                 }

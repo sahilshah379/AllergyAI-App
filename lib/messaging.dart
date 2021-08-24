@@ -6,11 +6,10 @@ import 'dart:io';
 
 class Messaging {
   final _reference = FirebaseDatabase.instance.reference();
-  Future<void> uploadImageToFirebase(String filePath) async {
-    File file = File(filePath);
+  Future<void> uploadFileToFirebase(File file, String fileName) async {
     try {
       await FirebaseStorage.instance
-          .ref('uploads/$filePath')
+          .ref('uploads/' + fileName)
           .putFile(file);
     } on FirebaseException catch (e) { }
   }

@@ -19,7 +19,6 @@ class Dashboard extends StatefulWidget {
 
 class DashboardState extends State<Dashboard> {
   late PageController _pageController;
-
   int _page = 1;
   var _navigationBarColors = [Color(0xff3A3B3C), Color(0xff3A3B3C), Color(0xff3A3B3C)];
 
