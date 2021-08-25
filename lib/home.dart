@@ -1,9 +1,12 @@
-import 'package:intl/intl.dart';
-import 'package:path/path.dart' as path;
+import 'dart:ui';
+
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 import 'dart:async';
 import 'dart:io';
 
@@ -21,7 +24,6 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  var messaging = new Messaging();
   String _id = '';
   late CameraController _cameraController;
   late Future<void> _initializeControllerFuture;
@@ -74,7 +76,13 @@ class HomeState extends State<Home> {
                     bottomRight: Radius.circular(8.0),
                     bottomLeft: Radius.circular(8.0),
                   ),
-                  child: CameraPreview(_cameraController),
+                  child: RotatedBox(
+                    quarterTurns: MediaQuery.of(context).orientation == Orientation.landscape ? 3 : 0,
+                    child: AspectRatio(
+                      aspectRatio: _cameraController.value.aspectRatio,
+                      child: CameraPreview(_cameraController),
+                    )
+                  ),
                 ),
               );
             } else {
@@ -109,12 +117,13 @@ class HomeState extends State<Home> {
               size: 30,
             ),
             onPressed: () async {
+
               setState(() {
                 _frontFacing = !_frontFacing;
               });
-              int cameraNum = _frontFacing ? 0 : 1;
+              int cameraNum = _frontFacing ? 1 : 0;
               _cameraController = CameraController(
-                widget.cameras[0],
+                widget.cameras[cameraNum],
                 ResolutionPreset.max,
                 imageFormatGroup: ImageFormatGroup.yuv420,
               );
@@ -140,9 +149,14 @@ class HomeState extends State<Home> {
                 try {
                   await _initializeControllerFuture;
                   final image = await _cameraController.takePicture();
-                  File file = File(image.path);
-                  var now = DateFormat('_yyyyMMddHHmmss').format(DateTime.now());
-                  messaging.uploadFileToFirebase(file, _id + now + '.jpg');
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) => PicturePreview(image, _id),
+                      transitionDuration: Duration(
+                        seconds:0,
+                      ),
+                    ),
+                  );
                 } catch(e) {
                   print(e);
                 }
@@ -152,6 +166,94 @@ class HomeState extends State<Home> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class PicturePreview extends StatelessWidget {
+  PicturePreview(this.image, this.id);
+  final image;
+  final id;
+
+  var messaging = new Messaging();
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      bottomNavigationBar: new Theme(
+        data: Theme.of(context).copyWith(
+          bottomAppBarColor: Colors.white,
+          canvasColor: Theme.of(context).primaryColor,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          child: Row(
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.save_alt),
+                onPressed: () async {
+                  final File file = File(image.path);
+                  final String path = await getApplicationDocumentsDirectory().then((directory) => directory.path);
+                  final fileName = basename(file.path);
+                  final File localImage = await file.copy('$path/$fileName');
+                },
+              ),
+              Spacer(),
+              ElevatedButton.icon(
+                label: Text('Upload'),
+                icon: Icon(Icons.upload_rounded),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                  ),
+                ),
+                onPressed: () async {
+                  File file = File(image.path);
+                  var now = DateFormat('_yyyyMMddHHmmss').format(DateTime.now());
+                  messaging.uploadFileToFirebase(file, id + now + '.jpg');
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            width: size.width,
+            height: size.height - kBottomNavigationBarHeight,
+
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(
+                Radius.circular(8.0),
+              ),
+              child: Image.file(
+                File(image.path),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 60,
+            left: 10,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: 30,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
