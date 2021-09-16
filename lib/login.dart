@@ -38,7 +38,7 @@ class LoginState extends State<Login> {
                     style: new TextStyle(
                         fontSize: 32.0,
                         fontFamily: 'Lato',
-                        color: Color(0xff1E96FF),
+                        color: Theme.of(context).primaryColor,
                     ),
                   ),
                 ],
@@ -53,54 +53,47 @@ class LoginState extends State<Login> {
                     padding: EdgeInsets.only(top: 30.0),
                     child: Container(
                       padding: const EdgeInsets.all(2.0),
-                      child: Container(
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
-                            } else if (!value.contains('@')) {
-                              return 'Please include an \'@\' in the email address';
-                            }
-                            _email = value;
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(23.0),
-                              borderSide: const BorderSide(
-                                color: Colors.white,
-                                width: 0.0,
-                              ),
-                            ),
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 23.0
-                            ),
-                            hintText: 'Email',
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          } else if (!value.contains('@')) {
+                            return 'Please include an \'@\' in the email address';
+                          }
+                          _email = value;
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(23.0),
                           ),
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.white,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(23.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 2.0,
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(23.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(23.0),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 2.0,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(23.0),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                              width: 2.0,
+                            ),
+                          ),
+                          // disabledBorder: InputBorder.none,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 23.0
+                          ),
+                          hintText: 'Email',
                         ),
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.blueAccent,
-                            Colors.lightBlue,
-                          ],
-                        ),
-                        border: Border.all(
-                          color: Colors.white
-                        ),
-                        borderRadius: BorderRadius.circular(25),
                       ),
                     ),
                   ),
@@ -120,15 +113,29 @@ class LoginState extends State<Login> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(23.0),
-                              borderSide: const BorderSide(
-                                color: Colors.white,
-                                width: 0.0,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(23.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor,
+                                width: 2.0,
                               ),
                             ),
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(23.0),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor,
+                                width: 2.0,
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(23.0),
+                              borderSide: const BorderSide(
+                                color: Colors.red,
+                                width: 2.0,
+                              ),
+                            ),
+                            // disabledBorder: InputBorder.none,
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 23.0
                             ),
@@ -136,25 +143,6 @@ class LoginState extends State<Login> {
                           ),
                           obscureText: true,
                         ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.white,
-                          ),
-                          borderRadius: BorderRadius.circular(23.0),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.blueAccent,
-                            Colors.lightBlue,
-                          ],
-                        ),
-                        border: Border.all(
-                            color: Colors.white
-                        ),
-                        borderRadius: BorderRadius.circular(25),
                       ),
                     ),
                   ),
@@ -166,8 +154,8 @@ class LoginState extends State<Login> {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              Colors.blueAccent,
-                              Colors.lightBlue,
+                              Theme.of(context).primaryColor,
+                              Theme.of(context).primaryColor,
                             ],
                             begin: FractionalOffset.centerLeft,
                             end: FractionalOffset.centerRight,
@@ -240,7 +228,7 @@ class LoginState extends State<Login> {
                     'Sign in with Google',
                     style: new TextStyle(
                       fontSize: 14.0,
-                      color: Color(0xff3A3B3C),
+                      color: Theme.of(context).primaryColorDark,
                     ),
                   ),
                 ],
@@ -262,7 +250,7 @@ class LoginState extends State<Login> {
                       child: Text(
                         'Register',
                         style: TextStyle(
-                          color: Colors.lightBlue,
+                          color: Theme.of(context).accentColor,
                         ),
                       ),
                       onPressed: () {print('register');},

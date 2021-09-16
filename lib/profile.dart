@@ -71,7 +71,7 @@ class ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return new Container(
       decoration: new BoxDecoration(
-        color: Color(0xffF0F0F0),
+        color: Theme.of(context).scaffoldBackgroundColor,
       ),
       child: ListView(
         children: <Widget>[
@@ -79,14 +79,7 @@ class ProfileState extends State<Profile> {
             children: <Widget> [
               Container(
                 height: 200,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.blueAccent,
-                      Colors.lightBlue,
-                    ],
-                  ),
-                ),
+                color: Theme.of(context).primaryColor,
               ),
               _photoURL != '' ? Container(
                 padding: const EdgeInsets.fromLTRB(20.0, 35.0, 0.0, 0.0),
@@ -148,13 +141,13 @@ class ProfileState extends State<Profile> {
                           style: new TextStyle(
                             fontSize: 28.0,
                             fontFamily: 'Lato',
-                            color: Color(0xff666666),
+                            color: Theme.of(context).primaryColorDark,
                           ),
                         ),
                         IconButton(
                           icon: Icon(
                             Icons.add_circle_outline,
-                            color: Color(0xff666666),
+                            color: Theme.of(context).primaryColorDark,
                           ),
                           onPressed: () => _showSearchDialog(),
                         ),
@@ -197,7 +190,7 @@ class ProfileState extends State<Profile> {
                                 title: Text(
                                   item,
                                   style: TextStyle(
-                                    color: Color(0xff666666),
+                                    color: Theme.of(context).primaryColorDark,
                                   ),
                                 ),
                               ),

@@ -28,7 +28,7 @@ class DashboardState extends State<Dashboard> {
     _pageController = new PageController(
       initialPage: 1,
     );
-    _navigationBarColors[_page] = Colors.lightBlueAccent;
+    _navigationBarColors[_page] = Color(0xffAA4465);
   }
 
   @override
@@ -46,7 +46,7 @@ class DashboardState extends State<Dashboard> {
     setState(() {
       _navigationBarColors[_page] = Color(0xff3A3B3C);
       this._page = page;
-      _navigationBarColors[_page] = Colors.lightBlueAccent;
+      _navigationBarColors[_page] = Theme.of(context).accentColor;
     });
   }
 
@@ -55,8 +55,8 @@ class DashboardState extends State<Dashboard> {
     return Scaffold(
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(
-          bottomAppBarColor: Colors.white,
-          canvasColor: Theme.of(context).primaryColor,
+          bottomAppBarColor: Theme.of(context).backgroundColor,
+          canvasColor: Theme.of(context).backgroundColor,
         ),
         child: new BottomNavigationBar(
           showSelectedLabels: false,

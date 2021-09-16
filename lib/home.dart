@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:allergy_ai_app/result.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -170,11 +171,16 @@ class HomeState extends State<Home> {
   }
 }
 
-class PicturePreview extends StatelessWidget {
+class PicturePreview extends StatefulWidget {
   PicturePreview(this.image, this.id);
   final image;
   final id;
 
+  @override
+  _PicturePreviewState createState() => _PicturePreviewState();
+}
+
+class _PicturePreviewState extends State<PicturePreview> {
   var messaging = new Messaging();
 
   @override
@@ -183,8 +189,8 @@ class PicturePreview extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(
-          bottomAppBarColor: Colors.white,
-          canvasColor: Theme.of(context).primaryColor,
+          bottomAppBarColor: Theme.of(context).backgroundColor,
+          canvasColor: Theme.of(context).backgroundColor,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -193,18 +199,18 @@ class PicturePreview extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.save_alt),
                 onPressed: () async {
-                  final File file = File(image.path);
+                  final File file = File(widget.image.path);
                   final String path = await getApplicationDocumentsDirectory().then((directory) => directory.path);
                   final fileName = basename(file.path);
-                  final File localImage = await file.copy('$path/$fileName');
+                  await file.copy('$path/$fileName');
                 },
               ),
               Spacer(),
               ElevatedButton.icon(
-                label: Text('Upload'),
+                label: Text('Evaluate'),
                 icon: Icon(Icons.upload_rounded),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+                  backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24.0),
@@ -212,10 +218,18 @@ class PicturePreview extends StatelessWidget {
                   ),
                 ),
                 onPressed: () async {
-                  File file = File(image.path);
-                  var now = DateFormat('_yyyyMMddHHmmss').format(DateTime.now());
-                  messaging.uploadFileToFirebase(file, id + now + '.jpg');
-                  Navigator.pop(context);
+                  // File file = File(widget.image.path);
+                  // var now = DateFormat('_yyyyMMddHHmmss').format(DateTime.now());
+                  // messaging.uploadFileToFirebase(file, widget.id + now + '.jpg');
+                  // Navigator.pop(context);
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) => Result(),
+                      transitionDuration: Duration(
+                        seconds:0,
+                      ),
+                    ),
+                  );
                 },
               )
             ],
@@ -233,7 +247,7 @@ class PicturePreview extends StatelessWidget {
                 Radius.circular(8.0),
               ),
               child: Image.file(
-                File(image.path),
+                File(widget.image.path),
                 fit: BoxFit.cover,
               ),
             ),

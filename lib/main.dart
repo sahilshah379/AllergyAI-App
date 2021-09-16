@@ -1,3 +1,4 @@
+import 'package:allergy_ai_app/result.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -24,9 +25,11 @@ class App extends StatelessWidget {
       title: 'Allergy AI',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.white,
-        accentColor: Colors.lightBlueAccent,
-        disabledColor: Color(0xff3A3B3C),
+        primaryColor: Color(0xff003366),
+        accentColor: Color(0xffAA4465),
+        backgroundColor: Color(0xffF0F0F0),
+        scaffoldBackgroundColor: Color(0xffF0F0F0),
+        primaryColorDark: Color(0xff3A3B3C),
       ),
       initialRoute: '/login',
       routes: {
