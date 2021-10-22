@@ -218,18 +218,19 @@ class _PicturePreviewState extends State<PicturePreview> {
                   ),
                 ),
                 onPressed: () async {
-                  // File file = File(widget.image.path);
-                  // var now = DateFormat('_yyyyMMddHHmmss').format(DateTime.now());
-                  // messaging.uploadFileToFirebase(file, widget.id + now + '.jpg');
-                  // Navigator.pop(context);
-                  Navigator.of(context).push(
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation1, animation2) => Result(),
-                      transitionDuration: Duration(
-                        seconds:0,
+                  File file = File(widget.image.path);
+                  var now = DateFormat('_yyyyMMddHHmmss').format(DateTime.now());
+                  messaging.uploadFileToFirebase(file, widget.id + now + '.jpg');
+                  Future.delayed(Duration(seconds: 5), () {
+                    Navigator.of(context).push(
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) => Result(),
+                        transitionDuration: Duration(
+                          seconds:0,
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  });
                 },
               )
             ],

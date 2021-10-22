@@ -84,7 +84,7 @@ class ProfileState extends State<Profile> {
               _photoURL != '' ? Container(
                 padding: const EdgeInsets.fromLTRB(20.0, 35.0, 0.0, 0.0),
                 child: CachedNetworkImage(
-                  imageUrl: _photoURL,
+                  imageUrl: "https://lh3.googleusercontent.com/ogw/ADea4I7WFzCBfxkJRrnyhXVVbN9VXfw1zMgckW5aclnIzQ=s83-c-mo",
                   imageBuilder: (context, url) => Container(
                     width: 130,
                     height: 130,

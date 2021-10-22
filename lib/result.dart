@@ -10,7 +10,8 @@ class Result extends StatefulWidget {
 class ResultState extends State<Result> {
   @override
   Widget build(BuildContext context) {
-    var item = "Sandwich";
+    var item = "Omelette";
+    var allergen = "Egg";
     var probability = "0.2672";
     return new Scaffold (
       appBar: AppBar(
@@ -36,27 +37,70 @@ class ResultState extends State<Result> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget> [
-          Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.fromLTRB(8.0, 80.0, 8.0, 40.0),
-            child: CircularPercentIndicator(
-              radius: 150.0,
-              lineWidth: 12.0,
-              percent: double.parse(probability),
-              animation: true,
-              center: new Text(
-                  (double.parse(probability) * 100).toStringAsFixed(2) + "%",
-                style: TextStyle(
-                  fontSize: 21,
-                  color: Theme.of(context).primaryColorDark,
-                ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24.0, 72.0, 24.0, 0.0),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+              decoration: new BoxDecoration(
+                color: Colors.white,
               ),
-              circularStrokeCap: CircularStrokeCap.round,
-              progressColor: Theme.of(context).accentColor,
+              clipBehavior: Clip.hardEdge,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: CircularPercentIndicator(
+                        radius: 120.0,
+                        lineWidth: 10.0,
+                        percent: double.parse(probability),
+                        animation: true,
+                        center: new Text(
+                          (double.parse(probability) * 100).toStringAsFixed(0) + "%",
+                          style: TextStyle(
+                            fontSize: 21,
+                            fontWeight: FontWeight.w300,
+                            color: Theme.of(context).primaryColorDark,
+                          ),
+                        ),
+                        circularStrokeCap: CircularStrokeCap.round,
+                        progressColor: Theme.of(context).accentColor,
+                        backgroundColor: Color(0xffCCCCCC),
+                      ),
+                    ),
+                  ),
+                  VerticalDivider(width: 50.0),
+                  Expanded(
+                    child: Center(
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            WidgetSpan(
+                              child: Icon(
+                                Icons.circle,
+                                size: 16,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            TextSpan(
+                              text: "  Probability that the image contains your allergen(s)",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context).primaryColorDark,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.fromLTRB(24.0, 32.0, 24.0, 0.0),
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
@@ -67,27 +111,53 @@ class ResultState extends State<Result> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    "Detected Food: " + item,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Theme.of(context).primaryColorDark,
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        WidgetSpan(
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 18,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "  Detected Food: " + item,
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Theme.of(context).primaryColorDark,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0),
                   ),
-                  Text(
-                    "Probability of Allergen: " + (double.parse(probability) * 100).toStringAsFixed(2) + "%",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Theme.of(context).primaryColorDark,
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        WidgetSpan(
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 18,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "  Probability of Allergen: " + (double.parse(probability) * 100).toStringAsFixed(2) + "%",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Theme.of(context).primaryColorDark,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       )
     );
